@@ -16,7 +16,7 @@ const Select = ({
   const [value, setValue] = useState();
   const [collapsed, setCollapsed] = useState(true);
   const changeValue = (newValue) => {
-    onChange();
+    onChange(newValue); // ajout de newValue manquant pour attribuer le type //
     setValue(newValue);
     setCollapsed(newValue);
   };
@@ -56,7 +56,7 @@ const Select = ({
           className={collapsed ? "open" : "close"}
           onClick={(e) => {
             e.preventDefault();
-            setCollapsed(!collapsed);
+            setCollapsed(!collapsed); /* Pour l'état du collepse si ouvert ou non (renvoie false à l'ouverture) */
           }}
         >
           <Arrow />

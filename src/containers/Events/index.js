@@ -7,31 +7,31 @@ import ModalEvent from "../ModalEvent";
 
 import "./style.css";
 
-const PER_PAGE = 9;
+const PER_PAGE = 9; // Nombre d'éléments EventCard à afficher par page //
 
 const EventList = () => {
   const { data, error } = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const filteredEvents = (
-    (!type
-      ? data?.events
-      : data?.events) || []
-  ).filter((event, index) => {
-    if (
-      (currentPage - 1) * PER_PAGE <= index &&
-      PER_PAGE * currentPage > index
-    ) {
-      return true;
-    }
-    return false;
-  });
+  const filteredEvents = ( // configuration du nombre de card à afficher par page //
+  (!type
+    ? data?.events 
+    : data?.events) || []
+).filter((event, index) => {
+  if (
+    (currentPage - 1) * PER_PAGE <= index && // ajout condition si type n'est définie = false sinon filtrage par type //
+    PER_PAGE * currentPage > index && !type || type === event.type
+  ) {
+    return true;
+  }
+  return false;
+})
   const changeType = (evtType) => {
     setCurrentPage(1);
     setType(evtType);
   };
   const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
-  const typeList = new Set(data?.events.map((event) => event.type));
+  const typeList = new Set(data?.events.map((event) => event.type)); // Configuration titre des catégories //
   return (
     <>
       {error && <div>An error occured</div>}
@@ -49,7 +49,7 @@ const EventList = () => {
               <Modal key={event.id} Content={<ModalEvent event={event} />}>
                 {({ setIsOpened }) => (
                   <EventCard
-                    onClick={() => setIsOpened(true)}
+                    onClick={() => setIsOpened(true)} // Si click sur une card la modale s'ouvre //
                     imageSrc={event.cover}
                     title={event.title}
                     date={new Date(event.date)}

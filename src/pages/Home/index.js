@@ -12,8 +12,13 @@ import Form from "../../containers/Form";
 import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
-const Page = () => {
-  const {last} = useData()
+const Page = () => { // notes ** création last pour trier par date pour avoir le projet récent //
+  const { data } = useData()
+  // last pour trier avec les méthodes sort& slice, slice pour ne pas modifier le tableau d'origine (data) //
+  const last = data?.events?.slice().sort((evtA, evtB) =>
+  new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
+);
+
   return <>
     <header>
       <Menu />
@@ -105,7 +110,7 @@ const Page = () => {
           }
         >
           {({ setIsOpened }) => (
-            <Form
+            <Form // onSuccess en prop pour afficher confirmation message envoyé après click //
               onSuccess={() => setIsOpened(true)}
               onError={() => null}
             />
@@ -116,13 +121,15 @@ const Page = () => {
     <footer className="row">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
+        {last&&
         <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
+          imageSrc={last[last.length - 1].cover}
+          title={last[last.length - 1].title}
+          date={new Date(last[last.length - 1].date)}
           small
-          label="boom"
+          label={last[last.length -1].type}
         />
+        }
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>

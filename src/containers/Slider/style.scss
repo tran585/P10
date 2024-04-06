@@ -12,10 +12,10 @@
     position: absolute;
     transition: opacity 1s;
     &--hide {
-      opacity: 0;
+      animation: slide-reverse 1200ms forwards;
     }
     &--display {
-      animation: slide 1s forwards;
+      animation: slide 1200ms forwards;
     }
     &__descriptionContainer {
       position: absolute;
@@ -84,5 +84,15 @@
   }
   100% {
     transform: translateX(0%);
+  }
+}
+
+@keyframes slide-reverse {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-100%);
   }
 }
