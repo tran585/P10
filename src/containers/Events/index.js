@@ -13,23 +13,21 @@ const EventList = () => {
   const { data, error } = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const filteredEvents = ( // configuration du nombre de card à afficher par page //
-  (!type
-    ? data?.events 
-    : data?.events) || []
-).filter((event, index) => {
-  if (
-    (currentPage - 1) * PER_PAGE <= index && // ajout condition si type n'est définie = false sinon filtrage par type //
-    PER_PAGE * currentPage > index && !type || type === event.type
-  ) {
-    return true;
-  }
-  return false;
-})
-  const changeType = (evtType) => {
+  const filteredEvents =
+    // configuration du nombre de card à afficher par page en + de pageNumber || ajout d'un deuxième filter pour trier par type //
+    ((!type ? data?.events : data?.events.filter(event => event.type === type || type === "Toutes")) || []).filter((_, index) => {
+      if (
+        ((currentPage - 1) * PER_PAGE <= index && PER_PAGE * currentPage > index)) 
+      {
+        return true;
+      }
+      return false;
+    });
+    const changeType = (evtType) => {
     setCurrentPage(1);
     setType(evtType);
   };
+  // const test
   const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
   const typeList = new Set(data?.events.map((event) => event.type)); // Configuration titre des catégories //
   return (

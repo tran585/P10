@@ -12,7 +12,8 @@ const Modal = ({ opened, Content, children }) => {
       {isOpened && (
         <div className="modal">
           <div className="content">
-            {Content} {/* contenu à afficher ici comme le detail d'une réalisation au click */}
+            {Content}{" "}
+            {/* contenu à afficher ici comme le detail d'une réalisation au click */}
             <button
               type="button"
               data-testid="close-modal"
@@ -29,12 +30,12 @@ const Modal = ({ opened, Content, children }) => {
 
 Modal.defaultProps = {
   opened: false,
-}
+};
 
 Modal.propTypes = {
   opened: PropTypes.bool,
   Content: PropTypes.node.isRequired,
   children: PropTypes.func.isRequired,
-}
+};
 
 export default Modal;

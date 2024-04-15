@@ -126,6 +126,7 @@ p {
 .SliderContainer {
   position: relative;
   display: flex;
+  overflow: hidden; /* overflow ajouté pour les éléments qui dépasse durant l'animation (slider)*/
   justify-content: center;
   top: -32px;
   background-color: white;

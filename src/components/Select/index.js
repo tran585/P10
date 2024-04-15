@@ -24,15 +24,15 @@ const Select = ({
     <div className={`SelectContainer ${type}`} data-testid="select-testid">
       {label && <div className="label">{label}</div>}
       <div className="Select">
-        <ul>
+        <ul> {/* selon l'état collapsed, cacher ou afficher le collapse (voir configuration btn ou click event onClick) */}
           <li className={collapsed ? "SelectTitle--show" : "SelectTitle--hide"}>
-            {value || (!titleEmpty && "Toutes")}
+            {value || (!titleEmpty && "Toutes")} {/* catégorie à afficher selon value (type) || si titleEmpty =false affiche "Toutes" */}
           </li>
           {!collapsed && (
             <>
-              {!titleEmpty && (
-                <li onClick={() => changeValue(null)}>
-                  <input defaultChecked={!value} name="selected" type="radio" />{" "}
+              {!titleEmpty && ( /* null remplacé par event clique qui récupère valeur "Toutes" pour filtrage */
+                <li onClick={(e) => changeValue(e.currentTarget.innerText)}>
+                  <input defaultChecked={!value || value} name="selected" type="radio" />{" "}{/* || value ajoutée en plus */}
                   Toutes
                 </li>
               )}
@@ -56,7 +56,9 @@ const Select = ({
           className={collapsed ? "open" : "close"}
           onClick={(e) => {
             e.preventDefault();
-            setCollapsed(!collapsed); /* Pour l'état du collepse si ouvert ou non (renvoie false à l'ouverture) */
+            setCollapsed(
+              !collapsed
+            ); /* Pour l'état du collepse si ouvert ou non (renvoie false à l'ouverture), l'état doit être true (!) pour le bon fonctionnement */
           }}
         >
           <Arrow />
@@ -88,7 +90,7 @@ Select.propTypes = {
   titleEmpty: PropTypes.bool,
   label: PropTypes.string,
   type: PropTypes.string,
-}
+};
 
 Select.defaultProps = {
   onChange: () => null,
@@ -96,6 +98,6 @@ Select.defaultProps = {
   label: "",
   type: "normal",
   name: "select",
-}
+};
 
 export default Select;

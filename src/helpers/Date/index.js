@@ -13,4 +13,4 @@ export const MONTHS = {
   12: "décembre",
 };
 // Ajout +1 après la méthode getMonth pour le décallage d'index de janvier //
-export const getMonth = (date) => MONTHS[date.getMonth() +1];
+export const getMonth = (date) => MONTHS[date.getMonth() + 1];
