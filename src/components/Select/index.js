@@ -31,7 +31,7 @@ const Select = ({
           {!collapsed && (
             <>
               {!titleEmpty && ( /* null remplacé par event clique qui récupère valeur "Toutes" pour filtrage */
-                <li onClick={(e) => changeValue(e.currentTarget.innerText)}>
+                <li onClick={(evt) => changeValue(evt.currentTarget.innerText)}>
                   <input defaultChecked={!value || value} name="selected" type="radio" />{" "}{/* || value ajoutée en plus */}
                   Toutes
                 </li>

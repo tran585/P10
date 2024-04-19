@@ -13,7 +13,7 @@ const Modal = ({ opened, Content, children }) => {
         <div className="modal">
           <div className="content">
             {Content}{" "}
-            {/* contenu à afficher ici comme le detail d'une réalisation au click */}
+            {/* "Content" contenu à afficher ici comme le detail d'une réalisation au click */}
             <button
               type="button"
               data-testid="close-modal"

@@ -5,10 +5,10 @@ import { getMonth } from "../../helpers/Date";
 import "./style.scss";
 
 const Slider = () => {
-  const { data } = useData(); // data du provider context //
+  const { data } = useData(); // les datas //
   const [index, setIndex] = useState(0); // Commence par l'index 0
 
-  const byDateDesc = data?.focus.sort((evtA, evtB) => // trier les datas du + récent au plus ancien, dernière img du slide index 2 = 0 //
+  const byDateDesc = data?.focus.sort((evtA, evtB) => // trier les datas du + récent au plus ancien (> au lieu de < changé) //
   new Date(evtA.date) > new Date(evtB.date) ? -1 : 1)
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const Slider = () => {
     );
     }, 5000);
     return () => clearTimeout(timerId); // Nettoyer le timer lors du démontage du composant
-  }, [index]); //*
+  }, [index]); // ajout index tableau dépendance //
 
   return (
     <div className="SlideCardList">
@@ -47,11 +47,11 @@ const Slider = () => {
               key={`bullet-${radioIdx.toString()}`}
               type="radio"
               name="radio-button"
-              checked={
+              checked={ /* Vérifier si l'élément actuel est sélectionné */
                 index === radioIdx
-              } /* Vérifier si l'élément actuel est sélectionné */
+              }
               onChange={() => {
-                setIndex(radioIdx); // au clic sur un bullet changer d'image //
+                setIndex(radioIdx); // au clic sur un bullet = change l'image selon l'index //
               }}
             />
           ))}

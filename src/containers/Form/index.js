@@ -6,12 +6,12 @@ import Button, { BUTTON_TYPES } from "../../components/Button";
 
 const mockContactApi = () =>
   new Promise((resolve) => {
-    setTimeout(resolve, 900);
+    setTimeout(resolve, 900); // modification timeout, car findByTestId a un timeout de 1000ms //
   });
 
 const Form = ({ onSuccess, onError }) => {
-  const [sending, setSending] = useState(false);
-  const sendContact = useCallback(
+  const [sending, setSending] = useState(false); // state pour désactiver le btn (disabled) durant l'attente //
+  const sendContact = useCallback( // fonction appelée avec l'event onSubmit du formulaire //
     async (evt) => {
       evt.preventDefault();
       setSending(true);
@@ -19,7 +19,7 @@ const Form = ({ onSuccess, onError }) => {
       try {
         await mockContactApi();
         setSending(false);
-        onSuccess(true);
+        onSuccess() // ajout onSuccess //
       } catch (err) {
         setSending(false);
         onError(err);
@@ -44,7 +44,6 @@ const Form = ({ onSuccess, onError }) => {
           <Button
             type={BUTTON_TYPES.SUBMIT}
             disabled={sending}
-            onClick={() => sendContact}
           >
             {sending ? "En cours" : "Envoyer"}
           </Button>

@@ -13,13 +13,12 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  // notes ** création last pour trier par date pour avoir le projet récent //
-  const { data } = useData();
-  // last pour trier avec les méthodes sort& slice, slice pour ne pas modifier le tableau d'origine (data) //
+  const { data } = useData(); // last remplacé par data //
+  // création last pour trier avec les méthodes slice& sort, slice pour ne pas modifier le tableau d'origine (data) //
   const last = data?.events
     ?.slice()
     .sort((evtA, evtB) => (new Date(evtA.date) < new Date(evtB.date) ? -1 : 1)); 
-    // le trie donne le denier event en fin d'index 17 //
+    // le trie donne le denier réalisation = fin d'index 17 //
 
   return (
     <>
@@ -102,7 +101,7 @@ const Page = () => {
         <div className="FormContainer" id="contact">
           <h2 className="Title">Contact</h2>
           <Modal
-            Content={
+            Content={ // prop "Content" //
               <div className="ModalMessage--success">
                 <div>Message envoyé !</div>
                 <p>
@@ -112,8 +111,8 @@ const Page = () => {
               </div>
             }
           >
-            {({ setIsOpened }) => (
-              <Form // onSuccess en prop pour afficher confirmation message envoyé après click //
+            {({ setIsOpened }) => ( // Children de la Modal composant, si le formulaire est ok (onSucess), active la modal //
+              <Form
                 onSuccess={() => setIsOpened(true)}
                 onError={() => null}
               />
@@ -124,7 +123,7 @@ const Page = () => {
       <footer className="row">
         <div className="col presta">
           <h3>Notre derniére prestation</h3>
-          {last && ( // -1 est ajouté pour à chaque élements pour régler l'index (18 = 17) //
+          {last && ( // -1 est ajouté pour à chaque élements pour régler l'index (18 = 17) + condition last && ajoutée //
             <EventCard
               imageSrc={last[last.length - 1].cover}
               title={last[last.length - 1].title}
